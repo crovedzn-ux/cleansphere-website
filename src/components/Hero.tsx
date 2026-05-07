@@ -56,10 +56,10 @@ export default function Hero() {
   const trustIcons = [ShieldCheck, Store, Recycle, FlaskConical];
 
   return (
-    <section 
-      ref={containerRef} 
+    <section
+      ref={containerRef}
       onMouseMove={handleMouseMove}
-      className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-[#ffffff]"
+      className="relative min-h-screen flex items-center pt-24 overflow-hidden bg-[#ffffff]"
     >
       {/* Ambient Premium Background */}
       <div className="absolute inset-0 z-0 pointer-events-none">
@@ -72,8 +72,8 @@ export default function Hero() {
         />
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 w-full relative z-10 py-12 lg:py-0">
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-8 items-center">
+      <div className="max-w-[90rem] mx-auto px-6 lg:px-16 w-full relative z-10 py-12 lg:py-24">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           
           {/* Left Side: Content */}
           <motion.div 
@@ -82,29 +82,29 @@ export default function Hero() {
             animate="visible"
             className="max-w-2xl pt-10 lg:pt-0"
           >
-            <motion.div variants={itemVariants} className="flex items-center gap-3 mb-8">
-              <div className="h-[1px] w-8 bg-black" />
-              <span className="text-xs font-bold tracking-[0.2em] uppercase text-gray-900">
+            <motion.div variants={itemVariants} className="flex items-center gap-3 mb-10">
+              <div className="h-[1px] w-10 bg-black" />
+              <span className="text-xs font-bold tracking-[0.22em] uppercase text-gray-900">
                 {t.hero.eyebrow}
               </span>
             </motion.div>
 
-            <motion.h1 
+            <motion.h1
               variants={itemVariants}
-              className="text-6xl sm:text-7xl lg:text-[5.5rem] font-extrabold tracking-tighter text-gray-900 leading-[0.95] mb-8"
+              className="text-6xl sm:text-7xl lg:text-[7.5rem] xl:text-[8.5rem] font-extrabold tracking-tighter text-gray-900 leading-[0.9] mb-10"
             >
               <span className="block">{t.hero.headlineLine1}</span>
               <span className="block text-gray-400">{t.hero.headlineLine2}</span>
             </motion.h1>
 
-            <motion.p 
+            <motion.p
               variants={itemVariants}
-              className="text-lg lg:text-xl text-gray-600 leading-relaxed mb-12 max-w-lg font-medium"
+              className="text-lg lg:text-2xl text-gray-500 leading-relaxed mb-14 max-w-xl font-normal"
             >
               {t.hero.subheadline}
             </motion.p>
 
-            <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 mb-10">
+            <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 mb-12">
               <a
                 href="#products"
                 onClick={(e) => {
@@ -112,7 +112,7 @@ export default function Hero() {
                   const el = document.getElementById('products');
                   if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
                 }}
-                className="relative overflow-hidden inline-flex items-center justify-center px-8 py-4 text-sm font-semibold text-white bg-black rounded-full hover:-translate-y-0.5 hover:shadow-[0_10px_40px_-10px_rgba(0,0,0,0.4)] active:scale-95 active:translate-y-0 transition-all duration-300 group"
+                className="relative overflow-hidden inline-flex items-center justify-center px-8 py-4 lg:px-10 lg:py-5 text-sm lg:text-base font-semibold text-white bg-black rounded-full hover:-translate-y-0.5 hover:shadow-[0_10px_40px_-10px_rgba(0,0,0,0.4)] active:scale-95 active:translate-y-0 transition-all duration-300 group"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out" />
                 <span className="relative z-10 flex items-center gap-3">
@@ -127,7 +127,7 @@ export default function Hero() {
                   const el = document.getElementById('contact');
                   if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
                 }}
-                className="relative overflow-hidden inline-flex items-center justify-center px-8 py-4 text-sm font-semibold text-gray-900 bg-white border border-gray-200 rounded-full hover:border-gray-400 hover:text-black hover:-translate-y-0.5 hover:shadow-[0_10px_40px_-10px_rgba(0,0,0,0.08)] active:scale-95 active:translate-y-0 transition-all duration-300 group"
+                className="relative overflow-hidden inline-flex items-center justify-center px-8 py-4 lg:px-10 lg:py-5 text-sm lg:text-base font-semibold text-gray-900 bg-white border border-gray-200 rounded-full hover:border-gray-400 hover:text-black hover:-translate-y-0.5 hover:shadow-[0_10px_40px_-10px_rgba(0,0,0,0.08)] active:scale-95 active:translate-y-0 transition-all duration-300 group"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-gray-50 to-gray-100 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <span className="relative z-10">{t.hero.contact}</span>
@@ -174,12 +174,12 @@ export default function Hero() {
           </motion.div>
 
           {/* Right Side: Product Cards — DESKTOP only */}
-          <div className="hidden lg:block relative h-[800px]" style={{ perspective: '1200px' }}>
+          <div className="hidden lg:block relative h-[860px]" style={{ perspective: '1400px' }}>
 
             {/* Ambient glow */}
             <div className="absolute inset-0 pointer-events-none">
-              <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-green-100/60 rounded-full blur-3xl" />
-              <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-purple-100/50 rounded-full blur-3xl" />
+              <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-green-100/70 rounded-full blur-3xl" />
+              <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-100/60 rounded-full blur-3xl" />
             </div>
 
             {/* Card 1 — Universal */}
@@ -189,13 +189,13 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0, rotate: -6 }}
               transition={{ delay: 0.5, type: 'spring', stiffness: 160, damping: 22 }}
               whileHover={{ rotate: -2, scale: 1.04, zIndex: 30, transition: { duration: 0.35, ease: [0.16,1,0.3,1] } }}
-              className="absolute left-0 top-[8%] w-52 z-10 cursor-pointer"
+              className="absolute left-4 top-[6%] w-72 z-10 cursor-pointer"
             >
               <motion.div
-                animate={{ y: [0, -10, 0] }}
+                animate={{ y: [0, -14, 0] }}
                 transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-                className="bg-white rounded-3xl overflow-hidden"
-                style={{ boxShadow: '0 20px 60px rgba(0,0,0,0.10), 0 4px 16px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.9)' }}
+                className="bg-white rounded-[2rem] overflow-hidden"
+                style={{ boxShadow: '0 30px 80px rgba(0,0,0,0.11), 0 6px 20px rgba(0,0,0,0.07), inset 0 1px 0 rgba(255,255,255,0.9)' }}
               >
                 <div className="relative overflow-hidden">
                   <motion.div
@@ -203,14 +203,14 @@ export default function Hero() {
                     transition={{ duration: 3.5, repeat: Infinity, repeatDelay: 5, ease: 'easeInOut', delay: 1 }}
                     className="absolute inset-0 z-10 bg-gradient-to-r from-transparent via-white/50 to-transparent skew-x-12 pointer-events-none"
                   />
-                  <div className="bg-gradient-to-b from-gray-50 to-white px-6 pt-6 pb-2 flex items-center justify-center h-52">
-                    <img src="/pellerino-universal.png" alt="Pellerino Universal" className="h-full w-auto object-contain drop-shadow-xl" draggable={false} />
+                  <div className="bg-gradient-to-b from-gray-50 to-white px-8 pt-8 pb-3 flex items-center justify-center h-72">
+                    <img src="/pellerino-universal.png" alt="Pellerino Universal" className="h-full w-auto object-contain drop-shadow-2xl" draggable={false} />
                   </div>
                 </div>
-                <div className="px-5 py-4 border-t border-gray-50">
-                  <span className="inline-block text-[10px] font-bold uppercase tracking-widest text-green-600 bg-green-50 px-2 py-0.5 rounded-full mb-1.5">Universal</span>
-                  <p className="text-sm font-semibold text-gray-900 leading-tight">Pellerino Waschmittel</p>
-                  <p className="text-[11px] text-gray-400 mt-0.5">137 Wäschen · 20°–95°</p>
+                <div className="px-6 py-5 border-t border-gray-50">
+                  <span className="inline-block text-[11px] font-bold uppercase tracking-widest text-green-600 bg-green-50 px-3 py-1 rounded-full mb-2">Universal</span>
+                  <p className="text-base font-semibold text-gray-900 leading-tight">Pellerino Waschmittel</p>
+                  <p className="text-xs text-gray-400 mt-1">137 Wäschen · 20°–95°</p>
                 </div>
               </motion.div>
             </motion.div>
@@ -219,16 +219,16 @@ export default function Hero() {
             <motion.div
               style={{ y: y2, x: b2MouseX, transformStyle: 'preserve-3d' }}
               initial={{ opacity: 0, y: 140, rotate: 7 }}
-              animate={{ opacity: 1, y: 60, rotate: 5 }}
+              animate={{ opacity: 1, y: 80, rotate: 5 }}
               transition={{ delay: 0.8, type: 'spring', stiffness: 160, damping: 22 }}
               whileHover={{ rotate: 1, scale: 1.04, zIndex: 30, transition: { duration: 0.35, ease: [0.16,1,0.3,1] } }}
-              className="absolute right-0 bottom-[8%] w-52 z-20 cursor-pointer"
+              className="absolute right-4 bottom-[4%] w-72 z-20 cursor-pointer"
             >
               <motion.div
-                animate={{ y: [0, -12, 0] }}
+                animate={{ y: [0, -16, 0] }}
                 transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut', delay: 1.5 }}
-                className="bg-white rounded-3xl overflow-hidden"
-                style={{ boxShadow: '0 24px 70px rgba(0,0,0,0.12), 0 4px 16px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.9)' }}
+                className="bg-white rounded-[2rem] overflow-hidden"
+                style={{ boxShadow: '0 34px 90px rgba(0,0,0,0.13), 0 6px 20px rgba(0,0,0,0.07), inset 0 1px 0 rgba(255,255,255,0.9)' }}
               >
                 <div className="relative overflow-hidden">
                   <motion.div
@@ -236,14 +236,14 @@ export default function Hero() {
                     transition={{ duration: 3.5, repeat: Infinity, repeatDelay: 5, ease: 'easeInOut', delay: 2.5 }}
                     className="absolute inset-0 z-10 bg-gradient-to-r from-transparent via-white/50 to-transparent skew-x-12 pointer-events-none"
                   />
-                  <div className="bg-gradient-to-b from-gray-50 to-white px-6 pt-6 pb-2 flex items-center justify-center h-52">
-                    <img src="/pellerino-color.png" alt="Pellerino Color" className="h-full w-auto object-contain drop-shadow-xl" draggable={false} />
+                  <div className="bg-gradient-to-b from-gray-50 to-white px-8 pt-8 pb-3 flex items-center justify-center h-72">
+                    <img src="/pellerino-color.png" alt="Pellerino Color" className="h-full w-auto object-contain drop-shadow-2xl" draggable={false} />
                   </div>
                 </div>
-                <div className="px-5 py-4 border-t border-gray-50">
-                  <span className="inline-block text-[10px] font-bold uppercase tracking-widest text-purple-600 bg-purple-50 px-2 py-0.5 rounded-full mb-1.5">Color</span>
-                  <p className="text-sm font-semibold text-gray-900 leading-tight">Pellerino Waschmittel</p>
-                  <p className="text-[11px] text-gray-400 mt-0.5">137 Wäschen · 20°–60°</p>
+                <div className="px-6 py-5 border-t border-gray-50">
+                  <span className="inline-block text-[11px] font-bold uppercase tracking-widest text-purple-600 bg-purple-50 px-3 py-1 rounded-full mb-2">Color</span>
+                  <p className="text-base font-semibold text-gray-900 leading-tight">Pellerino Waschmittel</p>
+                  <p className="text-xs text-gray-400 mt-1">137 Wäschen · 20°–60°</p>
                 </div>
               </motion.div>
             </motion.div>
