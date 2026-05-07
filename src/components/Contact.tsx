@@ -9,6 +9,22 @@ const EMAILJS_TEMPLATE_ID = 'template_h55cpg8';
 const EMAILJS_PUBLIC_KEY  = 'fipURl57hPNbiEcoB';
 
 type Status = 'idle' | 'loading' | 'success' | 'error';
+type FormFields = 'name' | 'email' | 'message';
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+function validate(form: { name: string; email: string; message: string }, lang: string) {
+  const e: Partial<Record<FormFields, string>> = {};
+  if (!form.name.trim() || form.name.trim().length < 2)
+    e.name = lang === 'en' ? 'Please enter your full name.' : 'Bitte geben Sie Ihren Namen ein.';
+  if (!form.email.trim())
+    e.email = lang === 'en' ? 'Email address is required.' : 'E-Mail-Adresse ist erforderlich.';
+  else if (!EMAIL_RE.test(form.email.trim()))
+    e.email = lang === 'en' ? 'Please enter a valid email address.' : 'Bitte eine gültige E-Mail-Adresse eingeben.';
+  if (!form.message.trim() || form.message.trim().length < 10)
+    e.message = lang === 'en' ? 'Message must be at least 10 characters.' : 'Nachricht muss mindestens 10 Zeichen lang sein.';
+  return e;
+}
 
 export default function Contact() {
   const { t, language } = useLanguage();
@@ -16,14 +32,37 @@ export default function Contact() {
 
   const [status, setStatus] = useState<Status>('idle');
   const [form, setForm] = useState({ name: '', email: '', company: '', message: '' });
+  const [errors, setErrors] = useState<Partial<Record<FormFields, string>>>({});
+  const [touched, setTouched] = useState<Partial<Record<FormFields, boolean>>>({});
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
+    const { name, value } = e.target;
+    setForm(prev => ({ ...prev, [name]: value }));
+    // Clear error as user types
+    if (errors[name as FormFields]) {
+      setErrors(prev => ({ ...prev, [name]: undefined }));
+    }
+  };
+
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const field = e.target.name as FormFields;
+    setTouched(prev => ({ ...prev, [field]: true }));
+    const fieldErrors = validate(form, language);
+    setErrors(prev => ({ ...prev, [field]: fieldErrors[field] }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (status === 'loading') return;
+
+    // Validate all fields
+    const fieldErrors = validate(form, language);
+    if (Object.keys(fieldErrors).length > 0) {
+      setErrors(fieldErrors);
+      setTouched({ name: true, email: true, message: true });
+      return;
+    }
+
     setStatus('loading');
 
     try {
@@ -123,34 +162,77 @@ export default function Contact() {
               )}
             </AnimatePresence>
 
-            <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="space-y-2">
+            <form ref={formRef} onSubmit={handleSubmit} noValidate className="space-y-5">
+              <div className="grid md:grid-cols-2 gap-5">
+                {/* Name */}
+                <div className="space-y-1.5">
                   <label className="text-sm font-medium text-gray-700">{t.contact.form.name} *</label>
                   <input
                     name="name"
                     type="text"
-                    required
                     value={form.name}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-black/5 focus:border-black transition-colors"
+                    onBlur={handleBlur}
+                    className={`w-full px-4 py-3 rounded-xl border transition-colors focus:outline-none focus:ring-2 ${
+                      touched.name && errors.name
+                        ? 'border-red-400 bg-red-50/40 focus:ring-red-200 focus:border-red-500'
+                        : 'border-gray-200 focus:ring-black/5 focus:border-black'
+                    }`}
                   />
+                  <AnimatePresence>
+                    {touched.name && errors.name && (
+                      <motion.p
+                        initial={{ opacity: 0, y: -4 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -4 }}
+                        transition={{ duration: 0.2 }}
+                        className="flex items-center gap-1.5 text-xs text-red-500 font-medium"
+                      >
+                        <AlertCircle className="w-3 h-3 shrink-0" />
+                        {errors.name}
+                      </motion.p>
+                    )}
+                  </AnimatePresence>
                 </div>
-                <div className="space-y-2">
+
+                {/* Email */}
+                <div className="space-y-1.5">
                   <label className="text-sm font-medium text-gray-700">{t.contact.form.email} *</label>
                   <input
                     name="email"
                     type="email"
-                    required
                     value={form.email}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-black/5 focus:border-black transition-colors"
+                    onBlur={handleBlur}
+                    className={`w-full px-4 py-3 rounded-xl border transition-colors focus:outline-none focus:ring-2 ${
+                      touched.email && errors.email
+                        ? 'border-red-400 bg-red-50/40 focus:ring-red-200 focus:border-red-500'
+                        : 'border-gray-200 focus:ring-black/5 focus:border-black'
+                    }`}
                   />
+                  <AnimatePresence>
+                    {touched.email && errors.email && (
+                      <motion.p
+                        initial={{ opacity: 0, y: -4 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -4 }}
+                        transition={{ duration: 0.2 }}
+                        className="flex items-center gap-1.5 text-xs text-red-500 font-medium"
+                      >
+                        <AlertCircle className="w-3 h-3 shrink-0" />
+                        {errors.email}
+                      </motion.p>
+                    )}
+                  </AnimatePresence>
                 </div>
               </div>
 
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-700">{t.contact.form.company}</label>
+              {/* Company (optional — no validation) */}
+              <div className="space-y-1.5">
+                <label className="text-sm font-medium text-gray-700">
+                  {t.contact.form.company}
+                  <span className="ml-1 text-xs text-gray-400 font-normal">({language === 'en' ? 'optional' : 'optional'})</span>
+                </label>
                 <input
                   name="company"
                   type="text"
@@ -160,16 +242,35 @@ export default function Contact() {
                 />
               </div>
 
-              <div className="space-y-2">
+              {/* Message */}
+              <div className="space-y-1.5">
                 <label className="text-sm font-medium text-gray-700">{t.contact.form.message} *</label>
                 <textarea
                   name="message"
                   rows={4}
-                  required
                   value={form.message}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-black/5 focus:border-black transition-colors resize-none"
+                  onBlur={handleBlur}
+                  className={`w-full px-4 py-3 rounded-xl border transition-colors focus:outline-none focus:ring-2 resize-none ${
+                    touched.message && errors.message
+                      ? 'border-red-400 bg-red-50/40 focus:ring-red-200 focus:border-red-500'
+                      : 'border-gray-200 focus:ring-black/5 focus:border-black'
+                  }`}
                 />
+                <AnimatePresence>
+                  {touched.message && errors.message && (
+                    <motion.p
+                      initial={{ opacity: 0, y: -4 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -4 }}
+                      transition={{ duration: 0.2 }}
+                      className="flex items-center gap-1.5 text-xs text-red-500 font-medium"
+                    >
+                      <AlertCircle className="w-3 h-3 shrink-0" />
+                      {errors.message}
+                    </motion.p>
+                  )}
+                </AnimatePresence>
               </div>
 
               {/* Error banner */}
