@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'motion/react';
 import { useLanguage } from '../context/LanguageContext';
-import { ArrowRight, ShieldCheck, Store, Recycle, FlaskConical } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 export default function Hero() {
   const { t } = useLanguage();
@@ -53,7 +53,6 @@ export default function Hero() {
     },
   };
 
-  const trustIcons = [ShieldCheck, Store, Recycle, FlaskConical];
 
   return (
     <section
@@ -157,20 +156,6 @@ export default function Hero() {
               ))}
             </motion.div>
 
-            {/* Trust Badges */}
-            <motion.div variants={itemVariants} className="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-8 border-t border-gray-100">
-              {t.hero.badges.map((badge, index) => {
-                const Icon = trustIcons[index];
-                return (
-                  <div key={index} className="flex flex-col gap-2">
-                    <Icon className="w-5 h-5 text-gray-400" strokeWidth={1.5} />
-                    <span className="text-[10px] font-semibold uppercase tracking-wider text-gray-500 leading-tight">
-                      {badge}
-                    </span>
-                  </div>
-                );
-              })}
-            </motion.div>
           </motion.div>
 
           {/* Right Side: Product Cards — DESKTOP only */}

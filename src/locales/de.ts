@@ -62,7 +62,7 @@ export const de = {
   },
   trust: {
     title: "Zertifizierte Exzellenz",
-    badges: ["Dermatologisch getestet", "Hocheffizient", "Umweltfreundlich", "Made in Germany"]
+    badges: ["Dermatologisch getestet", "Handelsbereit", "Hocheffizient", "Umweltfreundlich", "Made in Germany"]
   },
   retail: {
     title: "Partner von Cleansphere werden",

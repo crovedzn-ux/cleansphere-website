@@ -62,7 +62,7 @@ export const en = {
   },
   trust: {
     title: "Certified Excellence",
-    badges: ["Dermatologically Tested", "High Efficiency", "Eco-Friendly", "Made in Germany"]
+    badges: ["Dermatologically Tested", "Retail-Ready", "High Efficiency", "Eco-Friendly", "Made in Germany"]
   },
   retail: {
     title: "Partner with Cleansphere",

@@ -1,10 +1,10 @@
 import { motion } from 'motion/react';
 import { useLanguage } from '../context/LanguageContext';
-import { ShieldCheck, Zap, Globe2, Award } from 'lucide-react';
+import { ShieldCheck, Store, Zap, Globe2, Award } from 'lucide-react';
 
 export default function TrustSignals() {
   const { t } = useLanguage();
-  const icons = [ShieldCheck, Zap, Globe2, Award];
+  const icons = [ShieldCheck, Store, Zap, Globe2, Award];
 
   return (
     <section className="py-16 bg-white border-y border-gray-100">
@@ -14,7 +14,7 @@ export default function TrustSignals() {
             {t.trust.title}
           </h3>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
           {t.trust.badges.map((badge, index) => {
             const Icon = icons[index];
             return (
