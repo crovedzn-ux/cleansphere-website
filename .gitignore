@@ -1,0 +1,20 @@
+node_modules/
+build/
+dist/
+coverage/
+.DS_Store
+*.log
+.env*
+!.env.example
+
+# Design assets — not needed in web repo
+*.pdf
+*.ai
+*.psd
+*.tmp
+Businesscard/
+Druckdateien/
+Website/
+"Final Final"/
+__MACOSX/
+.claude/
