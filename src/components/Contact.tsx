@@ -33,36 +33,27 @@ export default function Contact() {
   const [status, setStatus] = useState<Status>('idle');
   const [form, setForm] = useState({ name: '', email: '', company: '', message: '' });
   const [errors, setErrors] = useState<Partial<Record<FormFields, string>>>({});
-  const [touched, setTouched] = useState<Partial<Record<FormFields, boolean>>>({});
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setForm(prev => ({ ...prev, [name]: value }));
-    // Clear error as user types
+    // Clear error for this field as user types
     if (errors[name as FormFields]) {
       setErrors(prev => ({ ...prev, [name]: undefined }));
     }
-  };
-
-  const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const field = e.target.name as FormFields;
-    setTouched(prev => ({ ...prev, [field]: true }));
-    const fieldErrors = validate(form, language);
-    setErrors(prev => ({ ...prev, [field]: fieldErrors[field] }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (status === 'loading') return;
 
-    // Validate all fields
     const fieldErrors = validate(form, language);
     if (Object.keys(fieldErrors).length > 0) {
       setErrors(fieldErrors);
-      setTouched({ name: true, email: true, message: true });
       return;
     }
 
+    setErrors({});
     setStatus('loading');
 
     try {
@@ -172,15 +163,14 @@ export default function Contact() {
                     type="text"
                     value={form.name}
                     onChange={handleChange}
-                    onBlur={handleBlur}
                     className={`w-full px-4 py-3 rounded-xl border transition-colors focus:outline-none focus:ring-2 ${
-                      touched.name && errors.name
+                      errors.name
                         ? 'border-red-400 bg-red-50/40 focus:ring-red-200 focus:border-red-500'
                         : 'border-gray-200 focus:ring-black/5 focus:border-black'
                     }`}
                   />
                   <AnimatePresence>
-                    {touched.name && errors.name && (
+                    {errors.name && (
                       <motion.p
                         initial={{ opacity: 0, y: -4 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -203,15 +193,14 @@ export default function Contact() {
                     type="email"
                     value={form.email}
                     onChange={handleChange}
-                    onBlur={handleBlur}
                     className={`w-full px-4 py-3 rounded-xl border transition-colors focus:outline-none focus:ring-2 ${
-                      touched.email && errors.email
+                      errors.email
                         ? 'border-red-400 bg-red-50/40 focus:ring-red-200 focus:border-red-500'
                         : 'border-gray-200 focus:ring-black/5 focus:border-black'
                     }`}
                   />
                   <AnimatePresence>
-                    {touched.email && errors.email && (
+                    {errors.email && (
                       <motion.p
                         initial={{ opacity: 0, y: -4 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -227,11 +216,11 @@ export default function Contact() {
                 </div>
               </div>
 
-              {/* Company (optional — no validation) */}
+              {/* Company (optional) */}
               <div className="space-y-1.5">
                 <label className="text-sm font-medium text-gray-700">
                   {t.contact.form.company}
-                  <span className="ml-1 text-xs text-gray-400 font-normal">({language === 'en' ? 'optional' : 'optional'})</span>
+                  <span className="ml-1 text-xs text-gray-400 font-normal">(optional)</span>
                 </label>
                 <input
                   name="company"
@@ -250,15 +239,14 @@ export default function Contact() {
                   rows={4}
                   value={form.message}
                   onChange={handleChange}
-                  onBlur={handleBlur}
                   className={`w-full px-4 py-3 rounded-xl border transition-colors focus:outline-none focus:ring-2 resize-none ${
-                    touched.message && errors.message
+                    errors.message
                       ? 'border-red-400 bg-red-50/40 focus:ring-red-200 focus:border-red-500'
                       : 'border-gray-200 focus:ring-black/5 focus:border-black'
                   }`}
                 />
                 <AnimatePresence>
-                  {touched.message && errors.message && (
+                  {errors.message && (
                     <motion.p
                       initial={{ opacity: 0, y: -4 }}
                       animate={{ opacity: 1, y: 0 }}
