@@ -17,6 +17,7 @@ export default function TrustSignals() {
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
           {t.trust.badges.map((badge, index) => {
             const Icon = icons[index];
+            const isLastOdd = index === t.trust.badges.length - 1 && t.trust.badges.length % 2 !== 0;
             return (
               <motion.div
                 key={index}
@@ -24,7 +25,7 @@ export default function TrustSignals() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: index * 0.1 }}
-                className="flex flex-col items-center text-center gap-3"
+                className={`flex flex-col items-center text-center gap-3 ${isLastOdd ? 'col-span-2 md:col-span-1' : ''}`}
               >
                 <div className="text-gray-300">
                   <Icon className="w-8 h-8" strokeWidth={1.5} />
